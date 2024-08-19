@@ -1,0 +1,8 @@
+.navbar {
+    @apply fixed inset-x-0 top-10 mx-auto flex max-w-fit items-center justify-center space-x-4 rounded-full border border-white/[0.2] bg-black py-2 px-8;
+    box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02),0px 0px 0px 1px rgba(25,28,33,0.08);
+}
+
+.navLinks {
+    @apply flex justify-between items-center gap-4;
+}
