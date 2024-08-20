@@ -13,6 +13,8 @@ import testRoutes from "./routes/testRoutes.mjs";
 import questionRoutes from "./routes/questionRoutes.mjs";
 import submissionRoutes from "./routes/submissionRoutes.mjs";
 import authenticate from "./middlewares/authenticate.mjs";
+// Import corn job
+import cron from "./cron.mjs";
 
 // Initialize app
 const app = express();
@@ -41,5 +43,6 @@ const port = process.env.PORT || 8000;
 app.listen(port, (error) => {
   if (!error) {
     console.log("Server is successfully running on port " + port);
+    cron.start();
   } else console.log("Error occurred, server can't start", error);
 });
