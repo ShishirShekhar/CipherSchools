@@ -3,3 +3,11 @@ export type User = {
     name: string;
     email: string;
 };
+
+export type Question = {
+    _id: string;
+    question: string;
+    options: string[];
+    correctOption: string;
+    marks: number;
+};
