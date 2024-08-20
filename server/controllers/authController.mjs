@@ -1,5 +1,5 @@
 // Import required modules
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 // Import the User model
 import User from "../models/User.mjs";
@@ -14,7 +14,7 @@ const authController = {
         return res.status(400).json({ message: "All fields are required" });
       }
 
-      const hashedPassword = bcryptjs.hashSync(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({ name, email, password: hashedPassword });
       const accessToken = jwt.sign(
         { id: user._id, email: email },
@@ -24,7 +24,9 @@ const authController = {
         }
       );
       res.cookie("accessToken", accessToken, { httpOnly: true });
-      return res.status(201).json({ accessToken });
+      return res
+        .status(201)
+        .json({ _id: user._id, name: user.name, email: user.email });
     } catch (error) {
       if (error.code === 11000) {
         return res.status(400).json({ message: "Email already exists" });
@@ -45,7 +47,7 @@ const authController = {
         return res.status(404).json({ message: "User not found" });
       }
 
-      const validPassword = bcryptjs.compareSync(password, user.password);
+      const validPassword = await bcrypt.compareSync(password, user.password);
       if (!validPassword) {
         return res.status(401).json({ message: "Invalid Credentials" });
       }
@@ -58,7 +60,9 @@ const authController = {
         }
       );
       res.cookie("accessToken", accessToken, { httpOnly: true });
-      return res.status(200).json({ accessToken });
+      return res
+        .status(200)
+        .json({ _id: user._id, name: user.name, email: user.email });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
