@@ -37,6 +37,10 @@ const submissionSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isMailSent: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
