@@ -19,3 +19,8 @@ export type Test = {
     questions: Question[];
 };
 
+export type Selection = {
+    questionId: string;
+    option: string;
+    savedAt: Date;
+};
