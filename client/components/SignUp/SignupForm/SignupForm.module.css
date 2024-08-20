@@ -1,0 +1,31 @@
+.signUpForm {
+    @apply shadow-input mx-auto w-full max-w-md rounded-none p-4 md:rounded-2xl md:p-8 bg-black border-[#316DCF] border-2;
+}
+
+.title {
+    @apply text-xl font-bold text-neutral-200;
+}
+
+.description {
+    @apply mt-2 max-w-sm text-sm text-neutral-300;
+}
+
+.form {
+    @apply my-8;
+}
+
+.labelInputContainer {
+    @apply mb-4;
+}
+
+.submitBtn {
+    @apply relative block h-10 w-full rounded-md bg-gradient-to-br  font-medium text-white bg-zinc-800 from-zinc-900 to-zinc-900 shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset];
+}
+
+.line {
+    @apply my-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-700;
+}
+
+.login {
+    @apply text-cyan-500;
+}
