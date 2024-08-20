@@ -11,3 +11,11 @@ export type Question = {
     correctOption: string;
     marks: number;
 };
+
+export type Test = {
+    _id: string;
+    title: string;
+    description: string;
+    questions: Question[];
+};
+
