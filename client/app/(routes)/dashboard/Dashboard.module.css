@@ -1,0 +1,55 @@
+.dashboard {
+    @apply flex flex-col gap-10 py-10;
+}
+
+.title {
+    @apply text-center text-7xl font-bold;
+}
+
+.welcome {
+    @apply text-4xl text-center;
+}
+
+.avatar {
+    @apply w-full h-full;
+}
+
+.container {
+    @apply w-full h-full flex border-[#316DCF] border-2 rounded-lg px-10 py-5;
+}
+
+.left {
+    @apply flex gap-20 w-full;
+}
+
+.avatar {
+    @apply w-72 h-96 rounded-xl;
+}
+
+.line {
+    @apply max-h-96 w-px bg-gradient-to-b from-transparent via-neutral-700;
+}
+
+.right {
+    @apply flex flex-col justify-between py-10 w-full;
+}
+
+.infoContainer {
+    @apply flex flex-col gap-5 w-full;
+}
+
+.info {
+    @apply font-bold text-xl text-[#316DCF];
+}
+
+.label {
+    @apply text-white font-normal;
+}
+
+.btnContainer {
+    @apply flex gap-5 justify-end;
+}
+
+.btn {
+    @apply relative block h-10 w-fit rounded-md bg-gradient-to-br  font-medium text-white bg-zinc-800 from-zinc-900 to-zinc-900 shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] px-5;
+}
