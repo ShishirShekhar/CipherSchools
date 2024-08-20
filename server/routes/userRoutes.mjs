@@ -7,8 +7,7 @@ import userController from "../controllers/userController.mjs";
 const router = Router();
 
 // Define the routes
-router.get("/", userController.getAllUsers);
-router.get("/:id", userController.getUser);
+router.get("/me", userController.getUser);
 
 // Export the router
 export default router;
