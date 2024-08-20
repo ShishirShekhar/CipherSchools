@@ -1,0 +1,11 @@
+.finish {
+    @apply flex flex-col justify-center items-center gap-5 py-10 text-center;
+}
+
+.title {
+    @apply text-4xl font-bold;
+}
+
+.btn {
+    @apply relative block h-10 w-fit rounded-md bg-gradient-to-br font-medium text-white bg-zinc-800 from-zinc-900 to-zinc-900 px-5;
+}
