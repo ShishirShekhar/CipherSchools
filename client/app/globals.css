@@ -25,6 +25,11 @@ html {
   scroll-behavior: smooth;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+
 .section {
   @apply px-6 md:px-20 lg:px-32 xl:px-48 min-h-screen;
 }
