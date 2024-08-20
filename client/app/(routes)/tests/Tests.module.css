@@ -1,0 +1,67 @@
+.tests {
+    @apply flex justify-between min-h-screen;
+}
+
+.main {
+    @apply w-3/4 flex flex-col justify-between;
+}
+
+.top {
+    @apply w-full;
+}
+
+.titleContainer {
+    @apply h-20 w-full flex items-center justify-center bg-[#316DCF] text-white;
+}
+
+.title {
+    @apply text-4xl;
+}
+
+.questionContainer {
+    @apply px-20 py-10 w-full;
+}
+
+.quesNumHeadingContainer {
+    @apply h-10 w-full;
+}
+
+.quesNumHeader {
+    @apply w-full text-2xl;
+}
+
+.question {
+    @apply py-4;
+}
+
+.optionsContainer {
+    @apply flex flex-col gap-1;
+}
+
+.options {
+    @apply w-full h-10 flex items-center gap-2;
+}
+
+.bottom {
+    @apply h-20 bg-[#316DCF] text-white flex items-center justify-around;
+}
+
+.btn {
+    @apply relative block h-10 w-fit rounded-md bg-gradient-to-br  font-medium text-white bg-zinc-800 from-zinc-900 to-zinc-900 shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] px-5;
+}
+
+.sidePanel {
+    @apply min-h-full w-1/4 flex flex-col items-center gap-5 border-neutral-700 border-l-2 p-5;
+}
+
+.videoContainer {
+    @apply w-11/12 min-h-56 rounded-xl overflow-hidden;
+}
+
+.questionsSection {
+    @apply flex flex-wrap justify-center gap-5;
+}
+
+.quesNum {
+    @apply bg-[#316DCF] size-10;
+}
