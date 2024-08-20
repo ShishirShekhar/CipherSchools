@@ -1,8 +1,9 @@
-import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
+import Link from "next/link";
 import { Cover } from "@/components/ui/Cover";
-import styles from "./Hero.module.css";
 import WorldGlobe from "@/components/ui/World";
+import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
 import { HoverBorderGradient } from "@/components/ui/HoverBorderGradient";
+import styles from "./Hero.module.css";
 
 export default function Hero() {
   return (
@@ -14,7 +15,9 @@ export default function Hero() {
         </h1>
 
         <HoverBorderGradient>
-          <span>Create Quiz</span>
+          <Link href="/dashboard">
+            <span>Start Now</span>
+          </Link>
         </HoverBorderGradient>
       </div>
 
