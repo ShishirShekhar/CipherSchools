@@ -8,9 +8,12 @@ const submissionController = {
   getAllSubmissions: async (req, res) => {
     try {
       const submissions = await Submission.find({ isDeleted: false });
-      return res.status(200).json({ submissions });
+      return res.status(200).json({ data: submissions, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Create a submission
@@ -20,12 +23,12 @@ const submissionController = {
       if (!testId || !selections || !endedAt) {
         return res
           .status(400)
-          .json({ error: "testId, selections, and endedAt are required" });
+          .json({ data: null, error: "Required fields are missing" });
       }
 
       const accessToken = req.cookies.accessToken;
       if (!accessToken) {
-        return res.status(401).json({ message: "Unauthorized" });
+        return res.status(401).json({ data: null, error: "Unauthorized" });
       }
       // Get the user ID from the access token
       const user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
@@ -37,43 +40,83 @@ const submissionController = {
         selections,
         endedAt,
       });
-      return res.status(201).json({ submission });
+      return res.status(201).json({ data: submission, error: null });
     } catch (error) {
-      console.log(error);
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Get a submission
   getSubmission: async (req, res) => {
     try {
-      const submission = await Submission.findById(req.params.id);
-      return res.status(200).json({ submission });
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Submission ID is missing" });
+      }
+      const submission = await Submission.findById(id);
+      if (!submission) {
+        return res
+          .status(404)
+          .json({ data: null, error: "Submission not found" });
+      }
+      return res.status(200).json({ data: submission, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Update a submission
   updateSubmission: async (req, res) => {
     try {
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Submission ID is missing" });
+      }
+      const { testId, userId, selections, endedAt } = req.body;
+      if (!testId || !userId || !selections || !endedAt) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Required fields are missing" });
+      }
       const submission = await Submission.findByIdAndUpdate(
-        req.params.id,
-        req.body,
+        id,
+        { testId, userId, selections, endedAt },
         {
           new: true,
         }
       );
-      return res.status(200).json({ submission });
+      return res.status(200).json({ data: submission, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Delete a submission
   deleteSubmission: async (req, res) => {
     try {
-      await Submission.findByIdAndUpdate(req.params.id, { isDeleted: true });
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Submission ID is missing" });
+      }
+      await Submission.findByIdAndUpdate(id, { isDeleted: true });
       return res.status(204).json();
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
 };

@@ -9,16 +9,20 @@ const userController = {
     try {
       const accessToken = req.cookies.accessToken;
       if (!accessToken) {
-        return res.status(401).json({ message: "Unauthorized" });
+        return res.status(401).json({ data: null, error: "Unauthorized" });
       }
       // Get the user ID from the access token
       const data = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
       const user = await User.findById(data.id);
-      return res
-        .status(200)
-        .json({ _id: user._id, name: user.name, email: user.email });
+      return res.status(200).json({
+        data: { _id: user._id, name: user.name, email: user.email },
+        error: null,
+      });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
 };

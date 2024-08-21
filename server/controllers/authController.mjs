@@ -11,7 +11,9 @@ const authController = {
     try {
       const { name, email, password } = req.body;
       if (!name || !email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res
+          .status(400)
+          .json({ data: null, error: "Required fields are missing" });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -24,14 +26,20 @@ const authController = {
         }
       );
       res.cookie("accessToken", accessToken, { httpOnly: true });
-      return res
-        .status(201)
-        .json({ _id: user._id, name: user.name, email: user.email });
+      return res.status(201).json({
+        data: { _id: user._id, name: user.name, email: user.email },
+        error: null,
+      });
     } catch (error) {
       if (error.code === 11000) {
-        return res.status(400).json({ message: "Email already exists" });
+        return res
+          .status(400)
+          .json({ data: null, error: "Email already exists" });
       }
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // User login
@@ -39,17 +47,21 @@ const authController = {
     try {
       const { email, password } = req.body;
       if (!email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res
+          .status(400)
+          .json({ data: null, error: "Required fields are missing" });
       }
 
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ data: null, error: "User not found" });
       }
 
       const validPassword = await bcrypt.compareSync(password, user.password);
       if (!validPassword) {
-        return res.status(401).json({ message: "Invalid Credentials" });
+        return res
+          .status(401)
+          .json({ data: null, error: "Invalid Credentials" });
       }
 
       const accessToken = jwt.sign(
@@ -60,20 +72,27 @@ const authController = {
         }
       );
       res.cookie("accessToken", accessToken, { httpOnly: true });
-      return res
-        .status(200)
-        .json({ _id: user._id, name: user.name, email: user.email });
+      return res.status(200).json({
+        data: { _id: user._id, name: user.name, email: user.email },
+        error: null,
+      });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // User logout
   userLogout: async (req, res) => {
     try {
       res.clearCookie("accessToken");
-      return res.status(200).json({ message: "User logged out" });
+      return res.status(204).json();
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
 };

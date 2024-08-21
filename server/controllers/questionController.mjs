@@ -7,47 +7,104 @@ const questionController = {
   getAllQuestions: async (req, res) => {
     try {
       const questions = await Question.find({ isDeleted: false });
-      return res.status(200).json({ questions });
+      return res.status(200).json({ data: questions, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Create a question
   createQuestion: async (req, res) => {
     try {
-      const question = await Question.create(req.body);
-      return res.status(201).json({ question });
+      const { question, options, correctOption, marks, testId } = req.body;
+      if (!question || !options || !correctOption || !marks || !testId) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Required fields are missing" });
+      }
+
+      const newQuestion = await Question.create({
+        question,
+        options,
+        correctOption,
+        marks,
+        testId,
+      });
+      return res.status(201).json({ data: newQuestion, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Get a question
   getQuestion: async (req, res) => {
     try {
-      const question = await Question.findById(req.params.id);
-      return res.status(200).json({ question });
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Question ID is missing" });
+      }
+      const question = await Question.findById(id);
+      return res.status(200).json({ data: question, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Update a question
   updateQuestion: async (req, res) => {
     try {
-      const question = await Question.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
-      return res.status(200).json({ question });
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Question ID is missing" });
+      }
+      const { question, options, correctOption, marks, testId } = req.body;
+      if (!question || !options || !correctOption || !marks || !testId) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Required fields are missing" });
+      }
+
+      const newQuestion = await Question.findByIdAndUpdate(
+        id,
+        { question, options, correctOption, marks, testId },
+        {
+          new: true,
+        }
+      );
+      return res.status(200).json({ data: newQuestion, error: null });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
   // Delete a question
   deleteQuestion: async (req, res) => {
     try {
-      await Question.findByIdAndUpdate(req.params.id, { isDeleted: true });
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Question ID is missing" });
+      }
+      await Question.findByIdAndUpdate(id, { isDeleted: true });
       return res.status(204).json();
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
     }
   },
 };
