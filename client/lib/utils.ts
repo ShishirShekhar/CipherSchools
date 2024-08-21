@@ -6,18 +6,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export async function logOut() {
-    try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
-            mode: "cors",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-        });
-    } catch (error) {
-        throw error;
-    }
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+        mode: "cors",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+    });
 }
 
 export async function checkAuth() {
