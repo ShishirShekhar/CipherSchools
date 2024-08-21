@@ -15,8 +15,6 @@ export async function logOut() {
             },
             credentials: "include",
         });
-
-        return;
     } catch (error) {
         throw error;
     }
