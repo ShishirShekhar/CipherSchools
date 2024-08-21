@@ -13,6 +13,7 @@ export default function TestPage() {
   const [curQues, setCurrQues] = useState(0);
   const [selections, setSelections] = useState<Selection[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [webcam, setWebcam] = useState(true);
 
   const router = useRouter();
 
@@ -58,6 +59,7 @@ export default function TestPage() {
     setIsSubmitting(true);
 
     try {
+      setWebcam(false);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/submissions`,
         {
@@ -80,12 +82,13 @@ export default function TestPage() {
         toast.success("Test submitted successfully");
         router.push("tests/finish"); // Redirect to the finish page
       } else {
-        console.log(responseData.error);
+        setWebcam(true);
         toast.error(
           responseData.error || "An error occurred while submitting the test."
         );
       }
     } catch (error) {
+      setWebcam(true);
       toast.error("An error occurred while submitting the test.");
     } finally {
       setIsSubmitting(false);
@@ -198,7 +201,7 @@ export default function TestPage() {
 
       <div className={styles.sidePanel}>
         <div className={styles.videoContainer}>
-          <WebCam />
+          <WebCam on={webcam} />
         </div>
 
         <div className={styles.questionsSection}>
