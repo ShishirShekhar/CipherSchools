@@ -12,10 +12,9 @@ const userController = {
         return res.status(401).json({ data: null, error: "Unauthorized" });
       }
       // Get the user ID from the access token
-      const data = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-      const user = await User.findById(data.id);
+      const user = req.user;
       return res.status(200).json({
-        data: { _id: user._id, name: user.name, email: user.email },
+        data: { ...user },
         error: null,
       });
     } catch (error) {

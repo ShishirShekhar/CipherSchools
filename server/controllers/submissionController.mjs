@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 // Import submission model
 import Submission from "../models/Submission.mjs";
 
@@ -31,8 +30,8 @@ const submissionController = {
         return res.status(401).json({ data: null, error: "Unauthorized" });
       }
       // Get the user ID from the access token
-      const user = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-      const userId = user.id;
+      const user = req.user;
+      const userId = user._id;
 
       const submission = await Submission.create({
         testId,
