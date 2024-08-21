@@ -4,13 +4,12 @@ import jwt from "jsonwebtoken";
 // Middleware to authenticate users
 const authenticate = (req, res, next) => {
   try {
-    const accessToken =
-      req.cookies.accessToken || req.headers.authorization?.split(" ")[1];
+    const accessToken = req.cookies.accessToken;
 
     if (!accessToken) {
       return res
         .status(401)
-        .json({ data: null, error: "Access Denied: No token provided" });
+        .json({ data: null, error: "Access Denied" });
     }
 
     const verified = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
