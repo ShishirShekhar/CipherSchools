@@ -24,3 +24,7 @@ export type Selection = {
     option: string;
     savedAt: Date;
 };
+
+export type Error = {
+    error: string;
+};
