@@ -25,7 +25,11 @@ const authController = {
           expiresIn: "1d",
         }
       );
-      res.cookie("accessToken", accessToken, { httpOnly: true });
+      res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
       return res.status(201).json({
         data: { _id: user._id, name: user.name, email: user.email },
         error: null,
@@ -71,7 +75,11 @@ const authController = {
           expiresIn: "1d",
         }
       );
-      res.cookie("accessToken", accessToken, { httpOnly: true });
+      res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
       return res.status(200).json({
         data: { _id: user._id, name: user.name, email: user.email },
         error: null,
