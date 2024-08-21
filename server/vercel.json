@@ -12,12 +12,10 @@
             "dest": "/"
         }
     ],
-    "functions": {
-        "cron/index.mjs": {
-            "runtime": "nodejs18.x"
+    "crons": [
+        {
+            "path": "/cron/index.mjs",
+            "schedule": "0 * * * *"
         }
-    },
-    "cron": {
-        "cron/index.mjs": "0 * * * *"
-    }
+    ]
 }
