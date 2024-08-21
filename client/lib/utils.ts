@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export async function logOut() {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
             mode: "cors",
             method: "POST",
             headers: {
@@ -16,11 +16,9 @@ export async function logOut() {
             credentials: "include",
         });
 
-        const data = await res.json();
-        console.log(data);
-        return data.message;
+        return;
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }
 
@@ -36,12 +34,12 @@ export async function checkAuth() {
         })
 
         if (res.ok) {
-            const user = await res.json();
-            return user;
+            const userData = await res.json();
+            return userData.data;
         }
 
         return null;
     } catch (error) {
-        return null;
+        throw error;
     }
 }

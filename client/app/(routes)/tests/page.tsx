@@ -74,18 +74,21 @@ export default function TestPage() {
         }
       );
 
-      const data = await res.json();
+      const responseData = await res.json();
 
       if (res.ok) {
         toast.success("Test submitted successfully");
         router.push("tests/finish"); // Redirect to the finish page
       } else {
-        console.log(data);
-        toast.error("An error occurred while submitting the test.");
+        console.log(responseData.error);
+        toast.error(
+          responseData.error || "An error occurred while submitting the test."
+        );
       }
-    } catch (err) {
-      console.error(err);
-      toast.error("An error occurred while submitting the test.");
+    } catch (error: Error | any) {
+      toast.error(
+        error.error || "An error occurred while submitting the test."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -105,15 +108,16 @@ export default function TestPage() {
           }
         );
 
-        const data = await res.json();
+        const testData = await res.json();
         if (res.ok) {
-          console.log(data.test);
-          setTest(data.test);
+          setTest(testData.data);
         } else {
           toast.error("Failed to fetch questions");
         }
-      } catch (err) {
-        toast.error("An error occurred while fetching questions");
+      } catch (error: Error | any) {
+        toast.error(
+          error.error || "An error occurred while fetching the test."
+        );
       }
     };
 

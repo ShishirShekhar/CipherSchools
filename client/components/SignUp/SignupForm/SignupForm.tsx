@@ -48,11 +48,10 @@ export default function LoginForm() {
         toast.success("Signed successful!");
         router.push("dashboard");
       } else {
-        toast.error(data.message || "Signed failed");
+        toast.error(data.error || "Signed failed");
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
-      console.log(error);
     } finally {
       setLoading(false);
     }

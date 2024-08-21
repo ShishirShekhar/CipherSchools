@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { checkAuth, logOut } from "@/lib/utils";
-import { User } from "@/lib/types";
+import { Error, User } from "@/lib/types";
 import avatar from "@/assets/images/avatar.jpg";
 import styles from "./Dashboard.module.css";
 
@@ -15,20 +16,27 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   const handleLogOut = async () => {
-    const message = await logOut();
-    if (message === "User logged out") {
+    try {
+      await logOut();
+      toast.success("Logged out successfully.");
       router.push("/login");
+    } catch (error: Error | any) {
+      toast.error(error.error || "An error occurred. Please try again.");
     }
   };
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await checkAuth();
-      if (!user) {
-        router.push("login");
-      } else {
-        setUser(user);
-        setLoading(false);
+      try {
+        const user = await checkAuth();
+        if (!user) {
+          router.push("login");
+        } else {
+          setUser(user);
+          setLoading(false);
+        }
+      } catch (error: Error | any) {
+        toast.error(error.error || "An error occurred. Please try again.");
       }
     };
 

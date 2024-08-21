@@ -44,7 +44,7 @@ export default function LoginForm() {
         toast.success("Login successful!");
         router.push("dashboard");
       } else {
-        toast.error(data.message || "Login failed");
+        toast.error(data.error || "Login failed");
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
