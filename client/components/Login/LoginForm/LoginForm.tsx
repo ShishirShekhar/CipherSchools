@@ -48,7 +48,6 @@ export default function LoginForm() {
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
-      console.log(error);
     } finally {
       setLoading(false);
     }

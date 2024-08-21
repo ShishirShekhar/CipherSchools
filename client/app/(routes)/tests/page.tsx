@@ -85,10 +85,8 @@ export default function TestPage() {
           responseData.error || "An error occurred while submitting the test."
         );
       }
-    } catch (error: Error | any) {
-      toast.error(
-        error.error || "An error occurred while submitting the test."
-      );
+    } catch (error) {
+      toast.error("An error occurred while submitting the test.");
     } finally {
       setIsSubmitting(false);
     }
@@ -114,10 +112,8 @@ export default function TestPage() {
         } else {
           toast.error("Failed to fetch questions");
         }
-      } catch (error: Error | any) {
-        toast.error(
-          error.error || "An error occurred while fetching the test."
-        );
+      } catch (error) {
+        toast.error("An error occurred while fetching the test.");
       }
     };
 

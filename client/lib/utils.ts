@@ -34,7 +34,7 @@ export async function checkAuth() {
         }
 
         throw userData.error;
-    } catch (error: Error | any) {
-        throw error.error || error;
+    } catch (error) {
+        throw error || "An error occurred. Please try again.";
     }
 }

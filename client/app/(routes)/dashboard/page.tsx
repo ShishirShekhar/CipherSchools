@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { checkAuth, logOut } from "@/lib/utils";
-import { Error, User } from "@/lib/types";
+import { User } from "@/lib/types";
 import avatar from "@/assets/images/avatar.jpg";
 import styles from "./Dashboard.module.css";
 
@@ -20,8 +20,8 @@ export default function DashboardPage() {
       await logOut();
       toast.success("Logged out successfully.");
       router.push("/login");
-    } catch (error: Error | any) {
-      toast.error(error.error || "An error occurred. Please try again.");
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
     }
   };
 
