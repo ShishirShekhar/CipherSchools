@@ -73,7 +73,7 @@ To set up the project locally, follow these steps:
 
    ```bash
    git clone https://github.com/ShishirShekhar/CipherSchools.git
-   cd TestEnvironmentPlatform
+   cd CipherSchools
    ```
 
 2. **Install dependencies for the server**
@@ -180,6 +180,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📧 Contact
 
-**Shishir Shekhar** - [LinkedIn](https://www.linkedin.com/in/shishirshekhar/) - [Twitter](https://twitter.com/shishirshekhar) - [Email](mailto:shishirshekhar@example.com)
+**Shishir Shekhar** - [LinkedIn](https://www.linkedin.com/in/shishir-shekhar/) - [Twitter](https://twitter.com/shishirshekhar0) - [Email](mailto:sspdav02@gmail.com)
 
 Project Link: [https://github.com/ShishirShekhar/CipherSchools](https://github.com/ShishirShekhar/CipherSchools)
