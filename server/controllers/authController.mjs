@@ -19,7 +19,7 @@ const authController = {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({ name, email, password: hashedPassword });
       const accessToken = jwt.sign(
-        { id: user._id, email: email },
+        { _id: user._id, name: user.name, email: user.email },
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: "1d",
@@ -65,7 +65,7 @@ const authController = {
       }
 
       const accessToken = jwt.sign(
-        { id: user._id, email: email },
+        { _id: user._id, name: user.name, email: user.email },
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: "1d",
