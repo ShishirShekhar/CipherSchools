@@ -50,7 +50,7 @@ const calMarksAndPercentage = async (testId, selections) => {
 };
 
 // Cron job to run every hour
-const cronJob = async () => {
+const cronJob = async (req, res) => {
   console.log("Running cron job to send quiz results...");
 
   try {
@@ -75,6 +75,8 @@ const cronJob = async () => {
 
       submission.isMailSent = true;
       await submission.save();
+
+      res.status(200).json({ message: "Job completed successfully" });
     }
   } catch (error) {
     console.error("Error fetching submissions or sending emails:", error);
