@@ -35,8 +35,9 @@ export default function DashboardPage() {
           setUser(user);
           setLoading(false);
         }
-      } catch (error: Error | any) {
-        toast.error(error.error || "An error occurred. Please try again.");
+      } catch (error: string | any) {
+        toast.error(error || "An error occurred. Please try again.");
+        router.push("login");
       }
     };
 

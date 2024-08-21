@@ -33,13 +33,14 @@ export async function checkAuth() {
             credentials: "include",
         })
 
+        const userData = await res.json();
+
         if (res.ok) {
-            const userData = await res.json();
             return userData.data;
         }
 
-        return null;
-    } catch (error) {
-        throw error;
+        throw userData.error;
+    } catch (error: Error | any) {
+        throw error.error || error;
     }
 }
