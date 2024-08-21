@@ -94,7 +94,12 @@ const authController = {
   // User logout
   userLogout: async (req, res) => {
     try {
-      res.clearCookie("accessToken");
+      res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
+      
       return res.status(204).json();
     } catch (error) {
       console.error(error);
