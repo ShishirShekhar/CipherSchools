@@ -32,7 +32,7 @@ const sendEmail = async (email, subject, text) => {
   }
 };
 
-const calMarksAndPercentage = async (testId, selections) => {
+const calMarksAndPercentage = async (selections) => {
   let marksObtained = 0;
   let totalMarks = 0;
 
@@ -58,14 +58,11 @@ export default cron.schedule("0 * * * *", async () => {
     const submissions = await Submission.find({
       isDeleted: false,
       isMailSent: false,
-    }).populate("userId");
+    });
 
     for (const submission of submissions) {
       const { marksObtained, totalMarks, percentage } =
-        await calMarksAndPercentage(
-          submission.testId,
-          submission.selections
-        );
+        await calMarksAndPercentage(submission.selections);
 
       const user = submission.userId;
       const subject = "Your Quiz Results";
