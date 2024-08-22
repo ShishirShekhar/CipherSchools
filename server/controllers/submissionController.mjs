@@ -6,7 +6,9 @@ const submissionController = {
   // Get all submissions
   getAllSubmissions: async (req, res) => {
     try {
-      const submissions = await Submission.find({ isDeleted: false });
+      const submissions = await Submission.find({ isDeleted: false }).populate(
+        "userId"
+      );
       return res.status(200).json({ data: submissions, error: null });
     } catch (error) {
       console.error(error);
@@ -56,7 +58,7 @@ const submissionController = {
           .status(400)
           .json({ data: null, error: "Submission ID is missing" });
       }
-      const submission = await Submission.findById(id);
+      const submission = await Submission.findById(id).populate("userId");
       if (!submission) {
         return res
           .status(404)
@@ -91,7 +93,7 @@ const submissionController = {
         {
           new: true,
         }
-      );
+      ).populate("userId");
       return res.status(200).json({ data: submission, error: null });
     } catch (error) {
       console.error(error);
