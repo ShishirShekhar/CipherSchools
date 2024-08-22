@@ -102,6 +102,24 @@ const submissionController = {
         .json({ data: null, error: "Internal Server Error" });
     }
   },
+  // Update mail sent status
+  updateMailSent: async (req, res) => {
+    try {
+      const id = req.params.id;
+      if (!id) {
+        return res
+          .status(400)
+          .json({ data: null, error: "Submission ID is missing" });
+      }
+      await Submission.findByIdAndUpdate(id, { isMailSent: true });
+      return res.status(204).json();
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ data: null, error: "Internal Server Error" });
+    }
+  },
   // Delete a submission
   deleteSubmission: async (req, res) => {
     try {
