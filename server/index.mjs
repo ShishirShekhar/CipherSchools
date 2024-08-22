@@ -22,22 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-var allowlist = [
-  "https://cipherschoolsquiz.vercel.app/",
-  "https://cron-cbegfeiig-shishirshekhars-projects.vercel.app/",
-];
-
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header("Origin")) !== -1) {
-    corsOptions = { origin: true, credentials: true }; // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false }; // disable CORS for this request
-  }
-  callback(null, corsOptions); // callback expects two parameters: error and options
-};
-
-app.use(cors(corsOptionsDelegate));
+// Allow CORS from any origin
+app.use(cors({ origin: true, credentials: true }));
 
 // Connect to database
 connectToDatabase().catch((error) => console.log(error));
