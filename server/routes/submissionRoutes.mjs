@@ -11,6 +11,7 @@ router.get("/", submissionController.getAllSubmissions);
 router.post("/", submissionController.createSubmission);
 router.get("/:id", submissionController.getSubmission);
 router.put("/:id", submissionController.updateSubmission);
+router.patch("/:id/mail-sent", submissionController.updateMailSent);
 router.delete("/:id", submissionController.deleteSubmission);
 
 // Export the router
