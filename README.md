@@ -37,26 +37,6 @@ This repository contains the source code for a Test Environment Platform develop
 - A cron job runs every hour to evaluate submitted tests and calculate scores.
 - Scores are automatically sent to the user’s email using a predefined template.
 
-## 📂 Project Structure
-
-```bash
-TestEnvironmentPlatform/
-├── server/                # Backend code (Node.js, Express.js)
-├── client/                # Frontend code (React.js)
-├── public/                # Public assets (images, icons, etc.)
-├── src/                   # Source code
-│   ├── components/        # Reusable components
-│   ├── pages/             # React pages
-│   ├── styles/            # CSS Modules and global styles
-│   ├── utils/             # Utility functions and helpers
-│   ├── hooks/             # Custom React hooks
-│   └── services/          # API service functions
-├── .env.example           # Example environment variables
-├── README.md              # Project README
-├── package.json           # NPM package configuration
-└── next.config.js         # Next.js configuration
-```
-
 ## 🖥️ Installation and Setup
 
 To set up the project locally, follow these steps:
